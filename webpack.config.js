@@ -48,10 +48,7 @@ Encore
     .enableVersioning(Encore.isProduction())
 
     // enables @babel/preset-env polyfills
-    .configureBabel(() => {}, {
-        useBuiltIns: 'usage',
-        corejs: 3
-    })
+    
 
     // enables Sass/SCSS support
     //.enableSassLoader()
@@ -71,4 +68,8 @@ Encore
     //.addEntry('admin', './assets/js/admin.js')
 ;
 
-module.exports = Encore.getWebpackConfig();
+var config = Encore.getWebpackConfig();
+
+config.externals.jquery = 'jQuery'
+
+module.exports = config

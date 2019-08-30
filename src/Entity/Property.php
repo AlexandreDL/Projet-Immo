@@ -119,7 +119,12 @@ class Property
 
     /**
     * @Assert\All({
-    *   @Assert\Image(mimeTypes="image/jpeg")
+    *   @Assert\Image(
+    *   maxSize="1000k",
+    *   maxSizeMessage="Le fichier excède 1000Ko.",
+    *   mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"},
+    *     mimeTypesMessage= "formats autorisés: png, jpeg, jpg, gif"
+    *   )
     *})
     */
     private $pictureFiles;
