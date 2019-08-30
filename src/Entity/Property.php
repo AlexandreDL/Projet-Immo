@@ -18,7 +18,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
  * @UniqueEntity("title")
- * @Vich\Uploadable
  */
 class Property
 {
@@ -34,21 +33,6 @@ class Property
      * @ORM\Column(type="integer")
      */
     private $id;
-
-     /**
-      * @var File|null
-     * @Assert\Image(
-     *      mimeTypes="image/jpeg")
-     * @Vich\UploadableField(mapping="property_image", fileNameProperty="fileName")
-     */
-    private $imageFile;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @var string|null
-     */
-    private $fileName;
 
     /**
      * @Assert\Length(min=5, max=255)
@@ -128,10 +112,24 @@ class Property
      */
     private $updated_At;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="property", orphanRemoval=true, cascade={"persist"})
+     */
+    private $pictures;
+
+    /**
+    * @Assert\All({
+    *   @Assert\Image(mimeTypes="image/jpeg")
+    *})
+    */
+    private $pictureFiles;
+
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
         $this->options = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -338,56 +336,6 @@ class Property
         return $this;
     }
 
-    /**
-     * Get the value of imageFile
-     *
-     * @return  File|null
-     */ 
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
-    /**
-     * Set the value of imageFile
-     *
-     * @param  File|null  $imageFile
-     *
-     * @return  self
-     */ 
-    public function setImageFile($imageFile)
-    {
-        $this->imageFile = $imageFile;
-        if ($this->imageFile instanceof UploadedFile) {
-            $this->updated_At = new \DateTime('now');
-        }
-        return $this;
-    }
-
-    /**
-     * Get the value of fileName
-     *
-     * @return  string|null
-     */ 
-    public function getFileName()
-    {
-        return $this->fileName;
-    }
-
-    /**
-     * Set the value of fileName
-     *
-     * @param  string|null  $fileName
-     *
-     * @return  self
-     */ 
-    public function setFileName($fileName)
-    {
-        $this->fileName = $fileName;
-
-        return $this;
-    }
-
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updated_At;
@@ -396,6 +344,69 @@ class Property
     public function setUpdatedAt(\DateTimeInterface $updated_At): self
     {
         $this->updated_At = $updated_At;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Picture[]
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function getPicture(): ?Picture
+    {
+        if ($this->pictures->isEmpty()){
+            return null;
+        }
+        return $this->pictures->first();
+    }
+
+    public function addPicture(Picture $picture): self
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
+            $picture->setProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): self
+    {
+        if ($this->pictures->contains($picture)) {
+            $this->pictures->removeElement($picture);
+            // set the owning side to null (unless already changed)
+            if ($picture->getProperty() === $this) {
+                $picture->setProperty(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get *})
+     */ 
+    public function getPictureFiles()
+    {
+        return $this->pictureFiles;
+    }
+
+    /**
+     * @param mixed $pictureFiles
+     * @return  Property
+     */ 
+    public function setPictureFiles($pictureFiles): self
+    {
+        foreach($pictureFiles as $pictureFile) {
+            $picture = new Picture();
+            $picture->setImageFile($pictureFile);
+            $this->addPicture($picture);
+        }
+        $this->pictureFiles = $pictureFiles;
 
         return $this;
     }
