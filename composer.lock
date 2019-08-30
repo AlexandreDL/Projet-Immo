@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7bdcfdbdb1b2699d777f613b9a0c851f",
+    "content-hash": "fa2706c95f5f01a238f5170a377cbfc8",
     "packages": [
         {
             "name": "allocine/twigcs",
