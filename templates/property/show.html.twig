@@ -18,7 +18,7 @@
         </div>
       {% endif %}
 
-      <div class="row">
+    <div class="row">
         <div class="col-md-8">
           <div data-slider>
             {% if property.pictures is empty %}
@@ -32,7 +32,7 @@
         </div>
         <div class="col-md-4">
           <h1>{{ property.title }}</h1>
-          <h2>{{ property.rooms }} pièces - {{ property.surface }} m²</h2>
+          <h2>{{ property.rooms }} piÃ¨ces - {{ property.surface }} m²</h2>
           <div class="text-primary" style="font-size: 4rem;font-weight: bold;">{{ property.formattedPrice }} €</div>
           <a href="#" class="btn btn-primary" id="contactButton"{% if form.vars.submitted %} style="display: none;"{% endif %}>Contacter l'agence</a>
           <div id="contactForm" class="mt-4"{% if not form.vars.submitted %} style="display: none;"{% endif %}>
@@ -69,7 +69,7 @@
             <td>{{ property.surface }} m²</td>
           </tr>
           <tr>
-            <td>Pièces</td>
+            <td>PiÃ¨ces</td>
             <td>{{ property.rooms }}</td>
           </tr>
           <tr>
@@ -87,7 +87,7 @@
         </table>
       </div>
       <div class="col-md-4">
-        <h2>Spécifications</h2>
+        <h2>Spécificités</h2>
         <ul class="list-group">
           {% for option in property.options %}
           <li class="list-group-item">{{ option.name }}</li>

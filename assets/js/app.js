@@ -1,8 +1,8 @@
 import Places from 'places.js'
 import Map from './modules/map.js'
-// import "slick-carousel";
-// import "slick-carousel/slick/slick-theme.css";
-// import "slick-carousel/slick/slick.css";
+import "slick-carousel";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 Map.init()
 
@@ -35,10 +35,15 @@ let $ = require('jquery')
 require('../css/app.css');
 require('select2')
 
-// $('.data-slider').slick({
-//   dots: true,
-//   arrows: true
-// })
+$('[data-slider]').slick({
+  dots: true,
+  arrows: true,
+  infinite: true,
+  speed: 300,
+  adaptiveHeight: true
+})
+
+
 $('select').select2()
 let $contactButton = $('#contactButton')
 $contactButton.click(e => {
