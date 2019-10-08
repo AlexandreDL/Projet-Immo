@@ -77,7 +77,7 @@ class PropertyController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $notification->notify($contact);
-            $this->addFlash('success', 'Votre email a bien Ã©tÃ© envoyÃ©');
+            $this->addFlash('success', 'Votre email a bien été envoyé');
             return $this->redirectToRoute('property.show', [
                 'id'   => $property->getId(),
                 'slug' => $property->getSlug()
@@ -94,21 +94,3 @@ class PropertyController extends AbstractController
 }
 
 
-
-
-
-// $property = new Property();
-// $property->setTitle('Mon premier bien')
-//     ->setPrice(200000)
-//     ->setRooms(4)
-//     ->setBedRooms(3)
-//     ->setDescription('Une petite description')
-//     ->setSurface(60)
-//     ->setFloor(4)
-//     ->setHeat(1)
-//     ->setCity('Marseille')
-//     ->setAddress('15 Boulevard Gambetta')
-//     ->setPostalCode('13000');
-// $em = $this->getDoctrine()->getManager();
-// $em->persist($property);
-// $em->flush();
