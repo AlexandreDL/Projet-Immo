@@ -17,13 +17,13 @@ class PropertySearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('minSurface', IntegerType::class, [
+            ->add('minSurface', IntegerType::class, [
             'required' => false,
             'label' => false,
             'attr' => [
                 'placeholder' => 'Surface minimale'
-            ]
-        ])
+                ]
+            ])
             ->add('maxPrice', IntegerType::class, [
                 'required' => false,
                 'label' => false,
@@ -37,9 +37,7 @@ class PropertySearchType extends AbstractType
                 'class' => Option::class,
                 'choice_label' => 'name',
                 'multiple' => true,
-                'attr' => [
-                    'placeholder' => 'Options'
-                ]
+                'placeholder' => 'Options',
             ])
             ->add('address', null, [
                 'label' => false,
@@ -54,10 +52,7 @@ class PropertySearchType extends AbstractType
                 'choices' => [
                 '10km' => 10,
                 '1000km' => 1000],
-                'attr' => [
-                    'placeholder' => 'Distance'
-
-                ]
+                'placeholder' => 'Distance',
             ])
             ->add('lat', HiddenType::class)
             ->add('lng', HiddenType::class)
